@@ -970,6 +970,18 @@ func (g *OpenAPIv3Generator) addSchemasForMessagesToDocumentV3(d *v3.Document, m
 				if inputOnly {
 					schema.Schema.WriteOnly = true
 				}
+
+				// Check for openapi.v3.property annotation
+				if propExt := proto.GetExtension(field.Desc.Options(), v3.E_Property); propExt != nil {
+					if prop, ok := propExt.(*v3.Schema); ok && prop != nil {
+						if prop.Title != "" {
+							schema.Schema.Title = prop.Title
+						}
+						if prop.Description != "" {
+							schema.Schema.Description = prop.Description
+						}
+					}
+				}
 			}
 
 			// Kolla
