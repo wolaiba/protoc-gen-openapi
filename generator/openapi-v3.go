@@ -35,7 +35,7 @@ import (
 	wk "github.com/google/gnostic/cmd/protoc-gen-openapi/generator/wellknown"
 	v3 "github.com/google/gnostic/openapiv3"
 
-	open_api_extensions "github.com/kollalabs/protoc-gen-openapi/openapi"
+	open_api_extensions "github.com/wolaiba/protoc-gen-openapi/openapi"
 )
 
 type Configuration struct {
@@ -52,7 +52,7 @@ type Configuration struct {
 }
 
 const (
-	infoURL            = "https://github.com/kollalabs/protoc-gen-openapi"
+	infoURL            = "https://github.com/wolaiba/protoc-gen-openapi"
 	BuildTagPublicDocs = "public_docs"
 )
 
