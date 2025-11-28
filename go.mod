@@ -1,4 +1,4 @@
-module github.com/kollalabs/protoc-gen-openapi
+module github.com/wolaiba/protoc-gen-openapi
 
 go 1.24
 
