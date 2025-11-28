@@ -2,11 +2,11 @@
 
 Contains a protoc plugin that generates openapi v3 documents
 
-**Forked from [github.com/google/gnostic/cmd/protoc-gen-openapi](https://github.com/google/gnostic/tree/main/cmd/protoc-gen-openapi)**
+**Forked from [github.com/kollalabs/protoc-gen-openapi](https://github.com/kollalabs/protoc-gen-openapi)**
 
 Installation:
 
-    go install github.com/kollalabs/protoc-gen-openapi@latest
+    go install github.com/wolaiba/protoc-gen-openapi@latest
 
 Usage:
 
@@ -30,6 +30,7 @@ in a way that won't trip anyone up.
 * [Validation (protoc-gen-validate)](#validation)
 * [Google Field Behavior Annotations](#google-field-behavior-annotations)
 * [OAS3 header support](#oas3-header-support)
+* [OpenAPI v3 Property Annotations](#openapi-v3-property-annotations)
 
 ### Better Enum Support
 Enums work better by using string values of proto enums instead of ints.
@@ -152,4 +153,49 @@ Adding more can easily be done in the function `addValidationRules` in `/generat
 * TODO: `(google.api.field_behavior) = IMMUTABLE` will add the `x-createOnly` property to the field (not supported by openapi yet)
 
 ### OAS3 header support
+
+TODO: Document this feature.
+
+### OpenAPI v3 Property Annotations
+
+Support for `openapi.v3.property` annotations to add `title` and `description` to schema fields.
+
+#### Example
+
+```proto
+import "openapi/v3/annotations.proto";
+
+message CreateUserRequest {
+    string name = 1 [
+        (openapi.v3.property) = {
+            title: "User Name",
+            description: "The display name of the user"
+        }
+    ];
+    string email = 2 [
+        (openapi.v3.property) = {title: "Email Address"}
+    ];
+}
+```
+
+outputs:
+
+```yaml
+components:
+    schemas:
+        CreateUserRequest:
+            properties:
+                name:
+                    title: User Name
+                    description: The display name of the user
+                    type: string
+                email:
+                    title: Email Address
+                    type: string
+```
+
+This is useful for:
+- Generating better API documentation with field-level descriptions
+- Providing localized field names for frontend validation error messages
+- Adding context to auto-generated client code
 
